@@ -25,8 +25,13 @@ func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 		}
 		for leakType, re := range regexes {
 			match = re.FindString(line)
+			// if len(match) == 0 ||
+			// 	(opts.Strict && containsStopWords(line)) ||
+			// 	(opts.Entropy && !checkShannonEntropy(line, opts)) {
+			// 	continue
+			// }
+
 			if len(match) == 0 ||
-				(opts.Strict && containsStopWords(line)) ||
 				(opts.Entropy && !checkShannonEntropy(line, opts)) {
 				continue
 			}
@@ -49,8 +54,13 @@ func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 		if externalRegex != nil {
 			for _, re := range externalRegex {
 				match = re.FindString(line)
+				// if len(match) == 0 ||
+				// 	(opts.Strict && containsStopWords(line)) ||
+				// 	(opts.Entropy && !checkShannonEntropy(line, opts)) {
+				// 	continue
+				// }
+
 				if len(match) == 0 ||
-					(opts.Strict && containsStopWords(line)) ||
 					(opts.Entropy && !checkShannonEntropy(line, opts)) {
 					continue
 				}

@@ -89,6 +89,8 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	)
 
 	index := assignRegex.FindStringIndex(target)
+	log.Println(target)
+	log.Println("XXXXXXXXXXXXXXXXXXXXXXXXXX")
 	if len(index) == 0 {
 		return false
 	}

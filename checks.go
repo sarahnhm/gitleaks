@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"math"
 	"strings"
 )
@@ -17,12 +18,12 @@ func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 	lines := strings.Split(diff, "\n")
 	file := "unable to determine file"
 	for _, line := range lines {
-		if strings.Contains(line, "diff --git a") {
-			idx := fileDiffRegex.FindStringIndex(line)
-			if len(idx) == 2 {
-				file = line[idx[1]:]
-			}
-		}
+		// if strings.Contains(line, "diff --git a") {
+		// 	idx := fileDiffRegex.FindStringIndex(line)
+		// 	if len(idx) == 2 {
+		// 		file = line[idx[1]:]
+		// 	}
+		// }
 
 		if opts.Entropy && !checkShannonEntropy(line, opts) {
 			continue
@@ -128,6 +129,8 @@ func checkShannonEntropy(target string, opts *Options) bool {
 			targetBase64Len++
 		}
 	}
+	log.Println("here")
+
 	for _, v := range base64Freq {
 		f := v / float64(targetBase64Len)
 		sum += f * math.Log2(f)

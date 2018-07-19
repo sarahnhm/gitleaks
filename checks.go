@@ -138,14 +138,13 @@ func checkShannonEntropy(target string, opts *Options) bool {
 
 	bits = int(math.Ceil(sum*-1)) * targetBase64Len
 	//bits = -sum
-	log.Printf("base64sum")
-	log.Println(sum)
+
 	log.Printf("base64bits")
 	log.Println(bits)
-	// if bits > opts.B64EntropyCutoff {
-	// 	return true
-	// }
-	return -sum > 4.5
+	log.Println(bits > opts.B64EntropyCutoff)
+	if bits > opts.B64EntropyCutoff {
+		return true
+	}
 
 	// hexShannon
 	sum = 0
@@ -159,10 +158,9 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		f := v / float64(targetHexLen)
 		sum += f * math.Log2(f)
 	}
-	// bits = int(math.Ceil(sum*-1)) * targetHexLen
-	// return bits > opts.HexEntropyCutoff
+	bits = int(math.Ceil(sum*-1)) * targetHexLen
+	return bits > opts.HexEntropyCutoff
 
-	return -sum > 3
 }
 
 // containsStopWords checks if there are any stop words in target

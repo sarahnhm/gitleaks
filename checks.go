@@ -31,8 +31,7 @@ func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 			// 	continue
 			// }
 
-			if len(match) == 0 ||
-				(opts.Entropy && !checkShannonEntropy(line, opts)) {
+			if opts.Entropy && !checkShannonEntropy(line, opts) {
 				continue
 			}
 

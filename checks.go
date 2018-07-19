@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"math"
 	"strings"
 )
@@ -95,7 +96,8 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	if len(target) > 100 {
 		return false
 	}
-
+	log.Printf("hexchars are:")
+	log.Printf(hexChars)
 	// base64Shannon
 	for _, i := range target {
 		if strings.Contains(base64Chars, string(i)) {

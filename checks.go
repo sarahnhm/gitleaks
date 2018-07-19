@@ -10,7 +10,7 @@ import (
 func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 
 	var (
-		match string
+		//match string
 		leaks []Leak
 		leak  Leak
 	)
@@ -24,23 +24,24 @@ func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 		// 		file = line[idx[1]:]
 		// 	}
 		// }
+		if !strings.Contains(line, "diff --git a") {
+			if opts.Entropy && !checkShannonEntropy(line, opts) {
+				continue
+			}
 
-		if opts.Entropy && !checkShannonEntropy(line, opts) {
-			continue
+			leak = Leak{
+				Line:     line,
+				Commit:   commit.Hash,
+				Offender: line,
+				Reason:   "high entropy",
+				Msg:      commit.Msg,
+				Time:     commit.Time,
+				Author:   commit.Author,
+				File:     file,
+				RepoURL:  repo.url,
+			}
+			leaks = append(leaks, leak)
 		}
-
-		leak = Leak{
-			Line:     line,
-			Commit:   commit.Hash,
-			Offender: match,
-			Reason:   "high entropy",
-			Msg:      commit.Msg,
-			Time:     commit.Time,
-			Author:   commit.Author,
-			File:     file,
-			RepoURL:  repo.url,
-		}
-		leaks = append(leaks, leak)
 
 		// for leakType, re := range regexes {
 		// 	match = re.FindString(line)

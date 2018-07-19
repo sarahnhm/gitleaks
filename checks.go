@@ -121,7 +121,7 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	if len(target) > 100 {
 		return false
 	}
-	//log.Printf("got here")
+
 	// base64Shannon
 	for _, i := range target {
 		if strings.Contains(base64Chars, string(i)) {
@@ -129,7 +129,6 @@ func checkShannonEntropy(target string, opts *Options) bool {
 			targetBase64Len++
 		}
 	}
-	log.Println("here")
 
 	for _, v := range base64Freq {
 		f := v / float64(targetBase64Len)
@@ -156,6 +155,8 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		sum += f * math.Log2(f)
 	}
 	bits = int(math.Ceil(sum*-1)) * targetHexLen
+	log.Println("base64bits")
+	log.Println(bits)
 	return bits > opts.HexEntropyCutoff
 
 	//bits = -sum

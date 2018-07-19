@@ -8,6 +8,7 @@ import (
 
 // checks Regex and if enabled, entropy and stopwords
 func doChecks(diff string, commit Commit, repo *Repo) []Leak {
+	log.Printf("do checks")
 	var (
 		match string
 		leaks []Leak
@@ -91,7 +92,10 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		return false
 	}
 	target = strings.Trim(target[index[1]:], " ")
-	if len(target) > 100 {
+	//if len(target) > 100 {
+	//	return false
+	//}
+	if len(target) < 20 {
 		return false
 	}
 
@@ -108,6 +112,7 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	}
 
 	bits = int(math.Ceil(sum*-1)) * targetBase64Len
+	log.Printf("%v\n", bits)
 	if bits > opts.B64EntropyCutoff {
 		return true
 	}

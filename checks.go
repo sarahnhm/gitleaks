@@ -95,8 +95,9 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	// if len(index) == 0 {
 	// 	return false
 	// }
-	log.Printf("got here")
+
 	target = strings.Trim(target[index[1]:], " ")
+	log.Printf("got here")
 	if len(target) > 100 {
 		return false
 	}

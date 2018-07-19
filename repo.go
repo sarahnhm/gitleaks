@@ -232,6 +232,7 @@ func auditDiff(currCommit Commit, repo *Repo, commitWG *sync.WaitGroup,
 	out, err := exec.Command("git", "diff", commitCmp).Output()
 	<-semaphoreChan
 
+	log.Printf("%v\n", string(out))
 	if err != nil {
 		log.Fatalf("unable to diff for %s: %v", currCommit.Hash, err)
 	}

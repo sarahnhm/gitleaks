@@ -17,12 +17,12 @@ func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 	lines := strings.Split(diff, "\n")
 	file := "unable to determine file"
 	for _, line := range lines {
-		if strings.Contains(line, "diff --git a") {
-			idx := fileDiffRegex.FindStringIndex(line)
-			if len(idx) == 2 {
-				file = line[idx[1]:]
-			}
-		}
+		// if strings.Contains(line, "diff --git a") {
+		// 	idx := fileDiffRegex.FindStringIndex(line)
+		// 	if len(idx) == 2 {
+		// 		file = line[idx[1]:]
+		// 	}
+		// }
 
 		if opts.Entropy && !checkShannonEntropy(line, opts) {
 			continue
@@ -105,13 +105,13 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		// bits float64
 	)
 
-	index := assignRegex.FindStringIndex(target)
-	// log.Println(index)
-	// log.Println(target)
-	// log.Println("XXXXXXXXXXXXXXXXXXXXXXXXXX")
-	if len(index) == 0 {
-		return false
-	}
+	// index := assignRegex.FindStringIndex(target)
+	// // log.Println(index)
+	// // log.Println(target)
+	// // log.Println("XXXXXXXXXXXXXXXXXXXXXXXXXX")
+	// if len(index) == 0 {
+	// 	return false
+	// }
 
 	// if len(index) > 0 {
 	// 	target = strings.Trim(target[index[1]:], " ")

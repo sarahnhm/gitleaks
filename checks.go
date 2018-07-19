@@ -156,7 +156,7 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	}
 	bits = int(math.Ceil(sum*-1)) * targetHexLen
 	log.Println("base64bits")
-	log.Println(bits)
+	log.Println(sum)
 	return bits > opts.HexEntropyCutoff
 
 	//bits = -sum

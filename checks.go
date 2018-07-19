@@ -92,9 +92,9 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		return false
 	}
 	target = strings.Trim(target[index[1]:], " ")
-	if len(target) > 100 {
-		return false
-	}
+	//if len(target) > 100 {
+	//	return false
+	//}
 
 	// base64Shannon
 	for _, i := range target {

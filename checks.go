@@ -88,7 +88,7 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		bits float64
 	)
 
-	index := assignRegex.FindStringIndex(target)
+	//index := assignRegex.FindStringIndex(target)
 	// log.Println(index)
 	// log.Println(target)
 	// log.Println("XXXXXXXXXXXXXXXXXXXXXXXXXX")
@@ -96,16 +96,14 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	// 	return false
 	// }
 
-	if len(index) > 0 {
-		target = strings.Trim(target[index[1]:], " ")
-	}
+	// if len(index) > 0 {
+	// 	target = strings.Trim(target[index[1]:], " ")
+	// }
 
+	// if len(target) > 100 {
+	// 	return false
+	// }
 	log.Printf("got here")
-	if len(target) > 100 {
-		return false
-	}
-	log.Printf("hexchars are:")
-	log.Printf(hexChars)
 	// base64Shannon
 	for _, i := range target {
 		if strings.Contains(base64Chars, string(i)) {

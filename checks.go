@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"math"
 	"strings"
 )
@@ -75,6 +76,7 @@ func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 
 // checkShannonEntropy checks entropy of target
 func checkShannonEntropy(target string, opts *Options) bool {
+	log.Printf("checking shannon entropy")
 	var (
 		sum             float64
 		targetBase64Len int

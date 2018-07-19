@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"math"
 	"strings"
 )
@@ -84,8 +83,8 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		targetHexLen    int
 		base64Freq      = make(map[rune]float64)
 		hexFreq         = make(map[rune]float64)
-		//bits            int
-		bits float64
+		bits            int
+		// bits float64
 	)
 
 	//index := assignRegex.FindStringIndex(target)
@@ -103,7 +102,7 @@ func checkShannonEntropy(target string, opts *Options) bool {
 	// if len(target) > 100 {
 	// 	return false
 	// }
-	log.Printf("got here")
+	//log.Printf("got here")
 	// base64Shannon
 	for _, i := range target {
 		if strings.Contains(base64Chars, string(i)) {
@@ -116,12 +115,12 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		sum += f * math.Log2(f)
 	}
 
-	//bits = int(math.Ceil(sum*-1)) * targetBase64Len
-	bits = -sum
-	//if bits > opts.B64EntropyCutoff {
-	//	return true
-	//}
-	return bits > 4.5
+	bits = int(math.Ceil(sum*-1)) * targetBase64Len
+	//bits = -sum
+	if bits > opts.B64EntropyCutoff {
+		return true
+	}
+	//return bits > 4.5
 
 	// hexShannon
 	sum = 0
@@ -135,11 +134,11 @@ func checkShannonEntropy(target string, opts *Options) bool {
 		f := v / float64(targetHexLen)
 		sum += f * math.Log2(f)
 	}
-	//bits = int(math.Ceil(sum*-1)) * targetHexLen
-	//return bits > opts.HexEntropyCutoff
+	bits = int(math.Ceil(sum*-1)) * targetHexLen
+	return bits > opts.HexEntropyCutoff
 
-	bits = -sum
-	return bits > 3
+	//bits = -sum
+	// return bits > 3
 }
 
 // containsStopWords checks if there are any stop words in target
